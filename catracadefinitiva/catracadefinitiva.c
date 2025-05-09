@@ -96,11 +96,13 @@ void GRp(){
 if(GR == 1){
         print_texto("1", 60, 32, 2);
         npSetLED(4, 0, 255, 0); // Verde
+        npWrite(); // Atualiza os LEDs
    
 }
 else {
     print_texto("0", 60, 32, 2);
     npSetLED(4, 255, 0, 0); // Vermelho
+    npWrite(); // Atualiza os LEDs
 }
 }
 
@@ -121,10 +123,12 @@ void HOp(){
 if(HO == 1){
         print_texto("1", 60, 32, 2);
         npSetLED(3, 0, 255, 0); // Verde
+        npWrite(); // Atualiza os LEDs
 }
 else {
     print_texto("0", 60, 32, 2);
     npSetLED(3, 255, 0, 0); // Vermelho
+    npWrite(); // Atualiza os LEDs
 }
 }
 
@@ -145,10 +149,12 @@ void DIp(){
 if(DI == 1){
         print_texto("1", 60, 32, 2);
         npSetLED(2, 0, 255, 0); // Verde
+        npWrite(); // Atualiza os LEDs
 }
 else {
     print_texto("0", 60, 32, 2);
     npSetLED(2, 255, 0, 0); // Vermelho
+    npWrite(); // Atualiza os LEDs
 }}
 
 void PTp(){
@@ -169,12 +175,19 @@ void PTp(){
 
 if(PT == 1){
         print_texto("1", 60, 32, 2);
-        npSetLED(1, 0, 255, 0); // Verde
+        npSetLED(1, 255, 0, 0); // Verde
+        npWrite(); // Atualiza os LEDs
 }
 else {
     print_texto("0", 60, 32, 2);
+    npSetLED(1, 0, 255, 0); // Vermelho
+    npWrite(); // Atualiza os LEDs
 }
 }
+
+
+
+
 void CT(){
     //texto do Menu
 
@@ -245,15 +258,27 @@ void MenuJoy(){
         
     
 
-int main(){ // Função principal
+int main() { // Função principal
     // Inicializa o sistema e os periféricos
-    ssd1306_clear(&disp); 
+    ssd1306_clear(&disp);
     initmenu();
     joyconfig();
-    
-    while (1)
-{
-    CT();
-    MenuJoy();
-}
+
+    // Inicializa entradas e saídas
+    stdio_init_all();
+
+    // Inicializa matriz de LEDs NeoPixel
+    npInit(LED_PIN);
+    npClear();
+
+    // Configura os LEDs para vermelho inicialmente
+    for (int i = 1; i < 4; i++) {
+        npSetLED(i, 255, 0, 0); // Vermelho
+    }
+    npWrite(); // Atualiza os LEDs
+
+    while (1) {
+        CT();
+        MenuJoy();
+    }
 }

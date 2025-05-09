@@ -15,7 +15,7 @@ struct pixel_t {
   uint8_t G, R, B; // Três valores de 8-bits compõem um pixel.
 };
 typedef struct pixel_t pixel_t;
-typedef pixel_t npLED_t; // Mudança de nome de "struct pixel_t" para "npLED_t" por clareza.
+// Removed unnecessary typedef for pixel_t.
 
 // Declaração do buffer de pixels que formam a matriz.
 npLED_t leds[LED_COUNT];
@@ -81,20 +81,4 @@ void npWrite() {
   sleep_us(100); // Espera 100us, sinal de RESET do datasheet.
 }
 
-int main() {
 
-  // Inicializa entradas e saídas.
-  stdio_init_all();
-
-  // Inicializa matriz de LEDs NeoPixel.
-  npInit(LED_PIN);
-  npClear();
-
-
-  npWrite(); // Escreve os dados nos LEDs.
-
-  // Não faz mais nada. Loop infinito.
-  while (true) {
-    sleep_ms(1000);
-  }
-}

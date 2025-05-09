@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-
+#define LED_PIN 7
 typedef struct {
   uint8_t G, R, B; // Três valores de 8-bits compõem um pixel na ordem GRB.
 } npLED_t;
